@@ -79,6 +79,7 @@ public class AppliancePlate : Interactable, IPickable
                 Debug.Log("Plate: Placing pot contents onto plate");
                 // If soup, can only add one type of soup
                 AddIngredients(cookingPot.Ingredients);
+                cookingPot.EmptyPot();
                 break;
             default:
                 Debug.Log("Plate: Can't place " + pickable + " onto plate");

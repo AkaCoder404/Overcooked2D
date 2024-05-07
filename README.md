@@ -1,14 +1,14 @@
 # Overcooked2D
 
-Inspired by Overcooked. Motivated to learn top-down 2D game development in Unity.
+Inspired by Overcooked. Motivated to learn top-down (isometric) 2D game development in Unity.
 
 ## GamePlay
 ### Controls
-Chop/Wash - R
-Pick Up/Drop - Space
-Emote - Keyboard E
-Dash - Keyboard F
-Arrow Keys / WASD - Movement   
+- Chop/Wash - R
+- Pick Up/Drop - Space
+- Emote - Keyboard E
+- Dash - Keyboard F
+- Arrow Keys / WASD - Movement   
 
 TODO
 - Throw
@@ -51,15 +51,19 @@ Here is a demo where blue box is ingredient crate, blue is countertop, orange is
 ![V2](./Docs/overcooked2d_v2.gif)
 
 ### V3 Basic Pixel Art and Basic UI Components
-- Incoprorate ModernX PixelArt
-- Improved slider visualization
+- Incoprorate ModernX PixelArt for 4 directional player movement + idle with Blend Tree and Animator
+- ModernX PixelArt to imagine what the gameplay will be like.
+- Cooking/Cutting progress slider located above the objects (Cutting Table and Cooking Table)
+
+Here is the demo. Game mechanics still the same. 
+
+![V3](./Docs/overcooked2d_v3.gif)
 
 ### V4: Imroved UI Level System, Order Game Mechanics
 - Basic Start page
 - Order UI Cards and Game Mechanics
 - Delivery Platform
 - Washing Dishes Sink
-
 
 ### V5: Levels
 - Level 1

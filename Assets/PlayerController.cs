@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private TrailRenderer tr;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Interactable currentInteractable;
     public bool isHoldingPickable { get; private set; }
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
         tr = GetComponent<TrailRenderer>();
 
         playerInput = GetComponent<PlayerInput>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         moveAction = playerInput.actions["Move"];
         dashAction = playerInput.actions["Dash"];
@@ -51,6 +55,8 @@ public class PlayerController : MonoBehaviour
         dashAction.performed += HandleDash;
         pickUpAction.performed += HandlePickUp;
         interactAction.performed += HandleInteract;
+
+
     }
 
     // Update is called once per frame
@@ -184,8 +190,11 @@ public class PlayerController : MonoBehaviour
         inputDirection = new Vector2(tempMovement.x, tempMovement.y);
     }
 
+    // Move the player based on input direction
     private void MoveThePlayer()
     {
+
+
         if (isDashing)
         {
             var currentVelocity = rb.velocity.magnitude;
@@ -198,7 +207,16 @@ public class PlayerController : MonoBehaviour
         }
         else rb.velocity = inputDirection.normalized * movementSpeed;
 
+        animator.SetBool("isMoving", inputDirection != Vector2.zero); // Play walking animation
+        animator.SetFloat("Horizontal", inputDirection.x);
+        animator.SetFloat("Vertical", inputDirection.y);
 
+        // Set idle animation direction, uses BlendTree just like the walking animation
+        if (inputDirection != Vector2.zero)
+        {
+            animator.SetFloat("idleHorizontal", inputDirection.x);
+            animator.SetFloat("idleVertical", inputDirection.y);
+        }
     }
 
     private IEnumerator DashAction()
