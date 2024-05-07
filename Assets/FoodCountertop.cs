@@ -1,30 +1,49 @@
+// Countertop to place food and appliances
+
 using UnityEngine;
 
 public class FoodCountertop : Interactable
 {
-    public Ingredient currentFood;
-
+    protected override void Awake()
+    {
+        CurrentPickable = GetComponentInChildren<IPickable>();
+    }
     public override void Interact(PlayerController player)
     {
-        Debug.Log("Interacting with countertop");
-        if (player.IsHoldingFood && currentFood == null)
+        LastPlayerControllerInteracted = player;
+    }
+
+    public override IPickable PickUpFromSlot(IPickable pickable)
+    {
+        if (CurrentPickable == null)
         {
-            Debug.Log("Countertop is empty, place food on countertop");
-            currentFood = player.PlaceFood();
+            Debug.Log("Countertop is empty, cannot pick up pickable");
+            return null;
         }
-        else if (!player.IsHoldingFood && currentFood != null)
+
+        var tempPickable = CurrentPickable;
+        CurrentPickable = null;
+        return tempPickable;
+    }
+
+    public override bool DropToSlot(IPickable pickable)
+    {
+        if (CurrentPickable != null)
         {
-            Debug.Log("Player is picking up food from countertop");
-            player.PickUpFood(currentFood);
-            currentFood = null;
+            // TODO Drop onto type of CurrentPickable (e.g CookingPot, ChoppingBoard, Plate, etc.)
+            if (CurrentPickable is AppliancePlate plate)
+            {
+                // TODO Limited things can be placed on plate (e.g. Soup and Burger parts cannot both be on plate at the same time)
+                return plate.DropToSlot(pickable);
+            }
+
+            return false;
         }
-        else if (player.IsHoldingFood && currentFood != null)
-        {
-            Debug.Log("Countertop is not empty, cannot place food on countertop");
-        }
-        else
-        {
-            Debug.Log("Countertop is empty, player is not holding food");
-        }
+
+        // Empty countertop, drop pickable directly
+        CurrentPickable = pickable;
+        CurrentPickable.gameObject.transform.position = transform.position;
+        CurrentPickable.gameObject.transform.SetParent(transform);
+        return true;
     }
 }

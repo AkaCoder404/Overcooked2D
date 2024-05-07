@@ -48,16 +48,17 @@ public class Ingredient : Interactable, IPickable
     public override void Interact(PlayerController player)
     {
         LastPlayerControllerInteracted = player;
-        if (player.IsHoldingFood)
-        {
-            Debug.Log("Player is already holding food");
-        }
-        else
-        {
-            Debug.Log("Player is picking up food " + name);
-            PickUp();
-            player.PickUpFood(this);
-        }
+    }
+
+    public override IPickable PickUpFromSlot(IPickable pickable)
+    {
+        rb.isKinematic = true;
+        return this;
+    }
+
+    public override bool DropToSlot(IPickable pickable)
+    {
+        return false;
     }
 
     public void PickUp()
@@ -70,6 +71,7 @@ public class Ingredient : Interactable, IPickable
     public void Drop()
     {
         // Enable physics
+        gameObject.transform.SetParent(null);
         rb.isKinematic = false;
         col.enabled = true;
     }
@@ -79,7 +81,7 @@ public class Ingredient : Interactable, IPickable
     {
         Status = IngredientStatus.Processed;
         // Change color for now
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.yellow;
 
         // TODO Change sprite to processed sprite
     }
@@ -87,5 +89,7 @@ public class Ingredient : Interactable, IPickable
     public void ChangeToCooked()
     {
         Status = IngredientStatus.Cooked;
+        // Change color for now
+        spriteRenderer.color = Color.green;
     }
 }

@@ -4,14 +4,31 @@ public class FoodTrash : Interactable
 {
     public override void Interact(PlayerController player)
     {
-        if (player.IsHoldingFood)
-        {
-            Debug.Log("Player is holding food, throwing it away");
-            Destroy(player.PlaceFood().gameObject);
-        }
-        else
-        {
-            Debug.Log("Player is not holding food, cannot throw away");
-        }
+        LastPlayerControllerInteracted = player;
     }
+
+    public override IPickable PickUpFromSlot(IPickable pickable)
+    {
+        return null;
+    }
+
+    public override bool DropToSlot(IPickable pickable)
+    {
+        if (CurrentPickable != null) return false;
+
+        switch (pickable)
+        {
+            case ApplianceCookingPot cookingPot:
+                cookingPot.EmptyPot();
+                break;
+            case Ingredient ingredient:
+                Destroy(pickable.gameObject);
+                break;
+            case AppliancePlate plate:
+                plate.EmptyPlate();
+                break;
+        }
+        return false;
+    }
+
 }

@@ -1,8 +1,9 @@
 public enum IngredientType
 {
-    Onion,
-    Tomato,
-    Meat,
-    Lettuce,
-    Bun
+    Onion,  // Onion Soup
+    Tomato, // Tomato Soup and Burger
+    Mushroom, // Mushroom Soup
+    Meat, // Burger
+    Lettuce, // Burger
+    Bun // Burger
 }

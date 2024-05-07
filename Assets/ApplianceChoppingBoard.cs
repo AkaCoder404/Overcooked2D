@@ -25,42 +25,50 @@ public class ApplianceChoppingBoard : Interactable
     {
         LastPlayerControllerInteracted = player;
 
-        if (player.IsHoldingFood && currentIngredient == null)
-        {
-            Debug.Log("Player is holding food, place it on chopping board");
-            currentIngredient = player.PlaceFood();
-        }
-        else if (!player.IsHoldingFood && currentIngredient != null)
-        {
-            if (currentIngredient.Status != IngredientStatus.Raw)
-            {
-                // TODO Different keys to pick up vs chop
-                if (currentIngredient.Status == IngredientStatus.Processed)
-                {
-                    Debug.Log("Player is picking up food from chopping board");
-                    player.PickUpFood(currentIngredient);
-                    currentIngredient = null;
-                    slider.gameObject.SetActive(false);
-                }
+        // base.Interact(player);
+        if (CurrentPickable == null ||
+            currentIngredient == null ||
+            currentIngredient.Status != IngredientStatus.Raw) return;
 
-                return;
-            }
-            Debug.Log("Player can chop food");
-            if (choppingCoroutine == null)
-            {
-                finalProcessTime = currentIngredient.ProcessTime;
-                currentProcessTime = 0f;
-                slider.value = 0f;
-                slider.gameObject.SetActive(true);
-                StartChopCoroutine();
-                return;
-            }
-
-            if (isChopping == false)
-            {
-                StartChopCoroutine();
-            }
+        if (choppingCoroutine == null)
+        {
+            Debug.Log("Starting chopping coroutine");
+            finalProcessTime = currentIngredient.ProcessTime;
+            currentProcessTime = 0f;
+            slider.value = 0f;
+            slider.gameObject.SetActive(true);
+            StartChopCoroutine();
+            return;
         }
+
+        if (isChopping == false)
+        {
+            StartChopCoroutine();
+        }
+    }
+
+    public override IPickable PickUpFromSlot(IPickable pickable)
+    {
+        if (CurrentPickable == null) return null;
+        if (choppingCoroutine != null) return null;
+
+        var tempPickable = CurrentPickable;
+        currentIngredient = null;
+        CurrentPickable = null;
+
+        return tempPickable;
+    }
+
+    public override bool DropToSlot(IPickable pickable)
+    {
+        if (CurrentPickable != null) return false; // Not empty
+        if (pickable is not Ingredient) return false; // Only ingredients can be placed on chopping board
+
+        CurrentPickable = pickable;
+        currentIngredient = pickable as Ingredient;
+        CurrentPickable.gameObject.transform.position = transform.position;
+        CurrentPickable.gameObject.transform.SetParent(transform);
+        return true;
     }
 
     private void StartChopCoroutine()
@@ -95,9 +103,4 @@ public class ApplianceChoppingBoard : Interactable
         Debug.Log("Chopping is done");
         yield return null;
     }
-
-
-
-
-
 }
