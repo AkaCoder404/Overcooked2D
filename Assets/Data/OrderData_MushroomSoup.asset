@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3429075218484c0f80d201e8eb588e0, type: 3}
+  m_Name: OrderData_MushroomSoup
+  m_EditorClassIdentifier: 
+  orderName: Mushroom Soup
+  sprite: {fileID: 0}
+  ingredients:
+  - {fileID: 11400000, guid: 127fd88bbc632431e98957a70cba81f5, type: 2}
+  - {fileID: 11400000, guid: 127fd88bbc632431e98957a70cba81f5, type: 2}
+  - {fileID: 11400000, guid: 127fd88bbc632431e98957a70cba81f5, type: 2}

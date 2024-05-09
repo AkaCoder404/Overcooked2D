@@ -59,13 +59,28 @@ Here is the demo. Game mechanics still the same.
 
 ![V3](./Docs/overcooked2d_v3.gif)
 
-### V4: Imroved UI Level System, Order Game Mechanics
-- Basic Start page
-- Order UI Cards and Game Mechanics
-- Delivery Platform
-- Washing Dishes Sink
+### V4: Main Menu, Order Mechanics and Order UI
+- Main Menu (Start Game)
+- GameManager (Singleton), OrderManager, UIManager to facilitate game flow. Simple, press play to load level 1.1
+- Pause/Unpause Game
+- Order Mechanics (LevelData, OrderData)
+- Level Canvas (Order UI, Countdown UI, and Score UI)
 
-### V5: Levels
-- Level 1
-- Level 2
-- ...
+In this demo, I mostly focused on understanding how to implement game logic and switching between scenes. Learned how to use a Singleton class, better understanding of `delegate` and `events`, as well as `coroutines`. Here is a demo.
+
+![](./Docs/overcooked2d_v4.gif)
+
+### V5: Finish Gameplay Mechanics for Level1 + Art/Animation
+Cooking animation ()
+Interactable Object Arts (Stove, Countertop, Chopping Board)
+Submit Order (And Calculate Score)
+Onion Soup
+
+### V6: Level Selection, Level Progression, etc...
+Add two levels 
+- Onlion Soup
+- Burgers
+
+### V7: Building and Exporting the Game
+
+

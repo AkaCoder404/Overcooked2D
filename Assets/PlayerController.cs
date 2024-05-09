@@ -55,8 +55,6 @@ public class PlayerController : MonoBehaviour
         dashAction.performed += HandleDash;
         pickUpAction.performed += HandlePickUp;
         interactAction.performed += HandleInteract;
-
-
     }
 
     // Update is called once per frame
@@ -214,8 +212,8 @@ public class PlayerController : MonoBehaviour
         // Set idle animation direction, uses BlendTree just like the walking animation
         if (inputDirection != Vector2.zero)
         {
-            animator.SetFloat("idleHorizontal", inputDirection.x);
-            animator.SetFloat("idleVertical", inputDirection.y);
+            animator.SetFloat("IdleHorizontal", inputDirection.x);
+            animator.SetFloat("IdleVertical", inputDirection.y);
         }
     }
 
